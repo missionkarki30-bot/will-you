@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --rose: #ff6b9d;
+            --deep-rose: #c44569;
+            --cream: #fff5f7;
+            --gold: #ffd700;
+            --shadow: rgba(196, 69, 105, 0.3);
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ace1af 0%, #88b388 50%, #9dc183 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating hearts background */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 6s infinite ease-in-out;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: var(--cream);
+            padding: 60px 50px;
+            border-radius: 30px;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .big-heart {
+            font-size: 100px;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+            filter: drop-shadow(0 10px 20px var(--shadow));
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.1);
+            }
+            50% {
+                transform: scale(1);
+            }
+            75% {
+                transform: scale(1.05);
+            }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            color: var(--deep-rose);
+            margin: 20px 0;
+            font-weight: 900;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .message {
+            font-size: 1.3em;
+            color: #555;
+            margin: 30px 0;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.4em;
+            padding: 18px 45px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #yesBtn:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        #yesBtn:hover:before {
+            width: 300px;
+            height: 300px;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.5);
+        }
+
+        #noBtn {
+            background: #f0f0f0;
+            color: #666;
+            transition: all 0.2s ease;
+        }
+
+        #noBtn:hover {
+            background: #e0e0e0;
+        }
+
+        .celebration {
+            display: none;
+            animation: celebrate 0.8s ease-out;
+        }
+
+        @keyframes celebrate {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg);
+            }
+            50% {
+                transform: scale(1.1) rotate(5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .celebration h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            color: var(--deep-rose);
+            margin: 20px 0;
+            font-weight: 900;
+        }
+
+        .celebration-message {
+            font-size: 1.4em;
+            color: #555;
+            margin: 20px 0;
+        }
+
+        .firework {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: firework 1s ease-out forwards;
+        }
+
+        @keyframes firework {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(20);
+                opacity: 0;
+            }
+        }
+
+        .rose-petals {
+            position: fixed;
+            top: -10px;
+            animation: fall 4s linear infinite;
+            pointer-events: none;
+            color: white;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .message {
+                font-size: 1.1em;
+            }
+
+            button {
+                font-size: 1.2em;
+                padding: 15px 35px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+        }
+
+        .question-mark {
+            display: inline-block;
+            animation: wiggle 2s infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-10deg);
+            }
+            75% {
+                transform: rotate(10deg);
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 20px;
+            animation: sparkle 1.5s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="heart-bg" id="heartBg"></div>
+
+    <div class="container">
+        <div id="questionSection">
+            <div class="header">
+                <div class="big-heart">💖</div>
+                <h1>Will You Be My Valentine Dalli<span class="question-mark">?</span></h1>
+            </div>
+
+            <div class="message">
+                <p>I know halka late vako xa but yeah</p>
+                <p>timi mero gham ma chaya ho k pukuu so,without you who am i?</p>
+                <p>So pukuuu pleaseee sayyy yesuu</p>
+            </div>
+
+            <div class="buttons">
+                <button id="yesBtn">Yes! 💕</button>
+                <button id="noBtn">No 😢</button>
+            </div>
+        </div>
+
+        <div id="celebrationSection" class="celebration">
+            <div class="big-heart">🎉💝🎉</div>
+            <h2>YAAAAY! 🥳</h2>
+            <div class="celebration-message">
+                <p>You just made me the happiest person alive! 💖</p>
+                <p>I can't wait to spend this Valentine's Day with you!</p>
+                <p>Get ready for an amazing time together! 🌹</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts background
+        function createFloatingHearts() {
+            const heartBg = document.getElementById('heartBg');
+            const hearts = ['💕', '💖', '💗', '💝', '💘', '❤️', '🌹'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heartBg.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000);
+            }, 300);
+        }
+
+        createFloatingHearts();
+
+        // Button interactions
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const questionSection = document.getElementById('questionSection');
+        const celebrationSection = document.getElementById('celebrationSection');
+
+        // Make "No" button run away
+        let noBtnSize = 1;
+        noBtn.addEventListener('mouseover', function() {
+            const maxX = window.innerWidth - noBtn.offsetWidth - 100;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 100;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            
+            // Make "No" button smaller and "Yes" button bigger
+            noBtnSize *= 0.85;
+            noBtn.style.transform = `scale(${noBtnSize})`;
+            
+            yesBtn.style.transform = `scale(${1 + (1 - noBtnSize) * 0.5})`;
+        });
+
+        // "Yes" button celebration
+        yesBtn.addEventListener('click', function() {
+            questionSection.style.display = 'none';
+            celebrationSection.style.display = 'block';
+            
+            // Create fireworks
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    createFirework();
+                }, i * 100);
+            }
+
+            // Create falling rose petals
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createRosePetal();
+                }, i * 100);
+            }
+
+            // Add sparkles around the celebration
+            createSparkles();
+        });
+
+        function createFirework() {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.left = Math.random() * window.innerWidth + 'px';
+            firework.style.top = Math.random() * window.innerHeight + 'px';
+            firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            document.body.appendChild(firework);
+
+            setTimeout(() => {
+                firework.remove();
+            }, 1000);
+        }
+
+        function createRosePetal() {
+            const petal = document.createElement('div');
+            petal.className = 'rose-petals';
+            
+            // Create baby's breath with green stem and white flower
+            petal.innerHTML = '<div style="display: inline-block;"><div style="color: white; text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);">❀</div><div style="color: #4CAF50; margin-top: -5px;">|</div></div>';
+            
+            petal.style.left = Math.random() * 100 + '%';
+            petal.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            petal.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(petal);
+
+            setTimeout(() => {
+                petal.remove();
+            }, 4000);
+        }
+
+        function createSparkles() {
+            const sparkleSymbols = ['✨', '⭐', '🌟', '💫'];
+            setInterval(() => {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.textContent = sparkleSymbols[Math.floor(Math.random() * sparkleSymbols.length)];
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                document.body.appendChild(sparkle);
+
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1500);
+            }, 200);
+        }
+    </script>
+</body>
+</html>
